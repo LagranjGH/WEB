@@ -1,0 +1,52 @@
+javascript:{ 
+	function imgSize(href) {
+		var img = new Image();
+		img.src = href;
+		img.onload = function() {
+			return img;
+		};
+		return img;
+	} 
+	function getImageURL() { 	
+		var tarNodes = document.getElementsByTagName('img'); 
+		var max = null;
+		var maxSize = -1;
+		if (tarNodes.length == 0) {
+		    alert("There are no images on this page!");
+			return null;
+		}
+		for (i=0; i<tarNodes.length;i++) {
+			var url = tarNodes[i].getAttribute("src");
+			var imgZz = imgSize(url);
+			var size = imgZz.width * imgZz.height;
+			if (size > maxSize) {
+				maxSize = size;
+				max = url;
+			}
+		}		
+		return max; 	
+	} 
+	function prepareURL() {
+		var tmpURL = getImageURL();
+		if (tmpURL.indexOf("http:") == -1) {
+			tmpURL = window.location.protocol + "//" + window.location.hostname + tmpURL; 
+		}
+		return tmpURL;
+	}
+	var url = prepareURL();
+	var formForSubmit = document.createElement('FORM'); 
+	
+	formForSubmit.id = "image"; 
+	formForSubmit.target = "_self"; 
+	formForSubmit.action = "http://localhost:8085/imager/saveimage/";
+	formForSubmit.method = "POST";	
+	
+	var param = document.createElement('INPUT'); 
+	param.type = 'HIDDEN'; 
+	param.name = 'img_url'; 
+	param.value = url; 
+	formForSubmit.appendChild(param); 
+	
+	document.body.appendChild(formForSubmit); 
+	formForSubmit.submit(); 
+}
