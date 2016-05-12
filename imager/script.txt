@@ -29,6 +29,9 @@ javascript:{
 	function prepareURL() {
 		var tmpURL = getImageURL();
 		if (tmpURL.indexOf("http:") == -1) {
+			if (!tmpURL.startsWith("/")) {
+				tmpURL = "/" + tmpURL;
+			}
 			tmpURL = window.location.protocol + "//" + window.location.hostname + tmpURL; 
 		}
 		return tmpURL;
