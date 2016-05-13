@@ -1,7 +1,7 @@
 package ru.lagranj.util;
 
 public interface ImagerConstants {
-	String ROOT_PATH = "app_name";
+	String ROOT_PATH = "app_path";
 	String IMG_PARAM_NAME = "img_url";
 	String FIRST_DIRECTORY_NAME = "1";
 	String FILE_SEPARATOR = System.getProperty("file.separator");
