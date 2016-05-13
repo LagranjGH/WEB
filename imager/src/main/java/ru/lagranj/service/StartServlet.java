@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
+import ru.lagranj.util.ImagerConstants;
 import ru.lagranj.util.LogUtil;
 
 public class StartServlet implements Servlet {
@@ -31,8 +32,10 @@ public class StartServlet implements Servlet {
 	@Override
 	public void init(ServletConfig servletConfig) throws ServletException {
 		config = servletConfig;
-		
+		String pathToApp = servletConfig.getServletContext().getRealPath("/");
+		System.setProperty(ImagerConstants.ROOT_PATH, pathToApp);
 		LogUtil.info("Starting iMager application.");
+		LogUtil.info("Set root path to: " + pathToApp);
 	}
 
 	@Override

@@ -15,7 +15,8 @@ javascript:{
 		    alert("There are no images on this page!");
 			return null;
 		}
-		for (i=0; i<tarNodes.length;i++) {
+		var maxCount = 128;
+		for (i=0; i<tarNodes.length && i<maxCount; i++) {
 			var url = tarNodes[i].getAttribute("src");
 			var imgZz = imgSize(url);
 			var size = imgZz.width * imgZz.height;
@@ -28,11 +29,15 @@ javascript:{
 	} 
 	function prepareURL() {
 		var tmpURL = getImageURL();
-		if (tmpURL.indexOf("http:") == -1) {
-			if (!tmpURL.startsWith("/")) {
-				tmpURL = "/" + tmpURL;
+		if (tmpURL.startsWith("//")) {
+			tmpURL = window.location.protocol + tmpURL;
+		} else {
+			if (tmpURL.indexOf("http:") == -1 && tmpURL.indexOf("https:") == -1) {
+				if (!tmpURL.startsWith("/")) {
+					tmpURL = "/" + tmpURL;
+				}
+				tmpURL = window.location.protocol + "//" + window.location.hostname + tmpURL; 
 			}
-			tmpURL = window.location.protocol + "//" + window.location.hostname + tmpURL; 
 		}
 		return tmpURL;
 	}

@@ -7,10 +7,10 @@
         </encoder>
     </appender>
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${context_path}/logs/imager.log</file>
+        <file>${app_path}/logs/imager.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
-            <fileNamePattern>${context_path}/logs/imager_%d{dd-MM-yyyy}.log</fileNamePattern>
+            <fileNamePattern>${app_path}/logs/imager_%d{dd-MM-yyyy}.log</fileNamePattern>
 
             <!-- keep 100 days' worth of history -->
             <maxHistory>10</maxHistory>
