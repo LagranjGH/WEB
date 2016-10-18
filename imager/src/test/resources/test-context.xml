@@ -12,7 +12,7 @@
 	<context:annotation-config/>
 
 	<task:annotation-driven scheduler="scheduler"/> 
-  	<task:scheduler id="scheduler" pool-size="2"/> 
+  	<task:scheduler id="scheduler" pool-size="1"/> 
 
 	<bean id="config" class="ru.lagranj.config.ImagerConfig"/>
 	

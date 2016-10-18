@@ -9,10 +9,14 @@
 			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
 			http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd">
 
-	<task:annotation-driven scheduler="scheduler"/> 
-  	<task:scheduler id="scheduler" pool-size="2"/> 
+	<context:annotation-config/>
 
-	<bean id="appConfig" class="ru.lagranj.config.ImagerConfig"/>
+	<task:annotation-driven scheduler="scheduler"/> 
+  	<task:scheduler id="scheduler" pool-size="1"/> 
+
+	<bean id="config" class="ru.lagranj.config.ImagerConfig"/>
+	
+	<bean id="dirFactory" class="ru.lagranj.save.DirectoryFactory"/>
 	
 	<bean id="saver" class="ru.lagranj.save.Saver"/>
 	
