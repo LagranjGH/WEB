@@ -8,7 +8,13 @@ import ru.lagranj.util.AppUtil;
 import ru.lagranj.util.ImagerConstants;
 
 public class SimpleDirectoryEntity extends AbstractDirectoryEntity {
+	
+	private ImagerConfig config;
 
+	public void setConfig(ImagerConfig config) {
+		this.config = config;
+	}
+	
 	public SimpleDirectoryEntity(String path) throws SaveException {
 		super(path);
 	}
@@ -49,7 +55,7 @@ public class SimpleDirectoryEntity extends AbstractDirectoryEntity {
 		} catch (NumberFormatException e) {
 			return getFirstDirName();
 		}
-		if (AppUtil.folderSize(lastFolder) >= ImagerConstants.MULT_CONVERT_BYTES_TO_MEGABYTES * ImagerConfig.getMaxDirectorySize()) {
+		if (AppUtil.folderSize(lastFolder) >= ImagerConstants.MULT_CONVERT_BYTES_TO_MEGABYTES * config.getMaxDirectorySize()) {
 			newName++;
 		}
 		return Integer.toString(newName);

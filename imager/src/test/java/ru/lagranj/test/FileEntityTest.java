@@ -11,7 +11,7 @@ import ru.lagranj.save.SimpleURLFileEntity;
 import ru.lagranj.util.AppUtil;
 import ru.lagranj.util.ImagerConstants;
 
-public class FileEntityTest {
+public class FileEntityTest extends BaseTest {
 	private static final String TEST_DIR = "C:/tmp";
 	private static final String TEST_FILE_NAME = "123.jpg";
 

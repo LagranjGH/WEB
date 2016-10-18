@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import ru.lagranj.config.ImagerConfig;
 import ru.lagranj.save.SaveException;
@@ -21,6 +22,12 @@ public class MainHandlerServlet extends HttpServlet{
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(MainHandlerServlet.class);
 
+	@Autowired
+	private Saver saver; 
+	
+	@Autowired
+	private ImagerConfig config;
+	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<HTML>");
@@ -42,7 +49,7 @@ public class MainHandlerServlet extends HttpServlet{
 		LOGGER.info("Saving URL: " + imageUrl);
 		String result;
 		try {
-			Saver.saveImageFromURL(imageUrl);
+			saver.saveImageFromURL(imageUrl);
 			result = "SUCCESSFUL";
 		} catch (SaveException e) {
 			LOGGER.error(e.getMessage());
@@ -53,7 +60,7 @@ public class MainHandlerServlet extends HttpServlet{
 		sb.append("<HTML>");
 			sb.append("\n<HEAD>");
 				sb.append("\n<TITLE>Result</TITLE>");
-				if (ImagerConfig.isAutoClosable()) {
+				if (config.isAutoClosable()) {
 					sb.append(createScript());
 				}
 			sb.append("\n</HEAD>");
@@ -72,7 +79,7 @@ public class MainHandlerServlet extends HttpServlet{
 		script.append("\n<script type=\"text/javascript\">");
 		script.append("\nfunction closeWindow() {");
 		script.append("\nwindow.open('','_parent','');window.close();}");
-		script.append("\nvar timer = window.setTimeout(closeWindow," + ImagerConfig.getAutoClosePeriod() + ");");
+		script.append("\nvar timer = window.setTimeout(closeWindow," + config.getAutoClosePeriod() + ");");
 		script.append("\n</script>");
 		return script.toString();
 	}

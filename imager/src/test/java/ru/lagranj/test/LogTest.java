@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import ru.lagranj.util.LogUtil;
 
-public class LogTest {
+public class LogTest extends BaseTest {
 
 	@Test
 	public void logInfoTest() {

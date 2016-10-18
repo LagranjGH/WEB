@@ -2,25 +2,22 @@ package ru.lagranj.config;
 
 import java.util.Properties;
 
+import org.springframework.scheduling.annotation.Scheduled;
+
 import ru.lagranj.util.AppUtil;
 import ru.lagranj.util.ImagerConstants;
 import ru.lagranj.util.LogUtil;
 
 public class ImagerConfig {	
-	private static Properties prop = new Properties();
+	private volatile Properties prop = new Properties();
 	
-	private static long lastTimestamp = 0;
-	
-	private static void refresh() {
-		long currTimestamp = System.currentTimeMillis();
-		if (currTimestamp > lastTimestamp + ImagerConstants.RELOAD_PROPERTIES_PERIOD * 1000) {
-			prop = ConfigLoader.loadProperties();
-			lastTimestamp = currTimestamp;
-		}
+	@Scheduled(fixedRate = ImagerConstants.RELOAD_PROPERTIES_PERIOD * 1000)
+	private void refresh() {
+		Properties propTmp = AppUtil.loadProperties();
+		prop = propTmp;
 	}
 	
-	public static boolean isAcceptableFile(String fileName) {
-		refresh();
+	public boolean isAcceptableFile(String fileName) {
 		if (AppUtil.isNullOrEmpty(fileName)) {
 			LogUtil.warn("File name is empty.");
 			return false;
@@ -38,8 +35,7 @@ public class ImagerConfig {
 		return false;
 	}
 	
-	public static String getRootDirectory() {
-		refresh();
+	public String getRootDirectory() {
 		String rootDir = prop.getProperty(PropertyName.ROOT_DIR);
 		if (AppUtil.isNullOrEmpty(rootDir)) {
 			rootDir = System.getProperty("user.home");
@@ -48,8 +44,7 @@ public class ImagerConfig {
 		return rootDir;
 	}
 	
-	public static int getMaxDirectorySize() {
-		refresh();
+	public int getMaxDirectorySize() {
 		String dirSize = prop.getProperty(PropertyName.SUBDIR_SIZE);
 		int size = ImagerConstants.DEFAULT_SUBDIRECTORY_SIZE;
 		if (AppUtil.isNullOrEmpty(dirSize)) {
@@ -64,8 +59,7 @@ public class ImagerConfig {
 		return size;
 	}
 	
-	public static boolean isAutoClosable(){
-		refresh();
+	public boolean isAutoClosable(){
 		String autoClose = prop.getProperty(PropertyName.AUTO_CLOSE);
 		boolean result = ImagerConstants.DEFAULT_AUTO_CLOSE;
 		if (AppUtil.isNullOrEmpty(autoClose)) {
@@ -76,8 +70,7 @@ public class ImagerConfig {
 		return result;
 	}
 	
-	public static int getAutoClosePeriod() {
-		refresh();
+	public int getAutoClosePeriod() {
 		String periodProp = prop.getProperty(PropertyName.AUTO_CLOSE_PERIOD);
 		int period = ImagerConstants.DEFAULT_AUTO_CLOSE_PERIOD;
 		if (AppUtil.isNullOrEmpty(periodProp)) {
