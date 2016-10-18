@@ -3,6 +3,7 @@ package ru.lagranj.service;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import ru.lagranj.config.ImagerConfig;
 import ru.lagranj.save.SaveException;
@@ -28,6 +30,13 @@ public class MainHandlerServlet extends HttpServlet{
 	@Autowired
 	private ImagerConfig config;
 	
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
+	}
+	
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<HTML>");
@@ -44,6 +53,7 @@ public class MainHandlerServlet extends HttpServlet{
 		out.println(sb.toString());
 	}
 	
+	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String imageUrl = req.getParameter(ImagerConstants.IMG_PARAM_NAME);
 		LOGGER.info("Saving URL: " + imageUrl);
