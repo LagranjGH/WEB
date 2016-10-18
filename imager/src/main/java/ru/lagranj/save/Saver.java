@@ -21,14 +21,6 @@ public class Saver {
 	@Autowired
 	private DirectoryFactory directoryFactory;
 	
-//	public void setConfig(ImagerConfig config) {
-//		this.config = config;
-//	}
-//	
-//	public void setFactory(DirectoryFactory factory) {
-//		this.directoryFactory = factory;
-//	}
-	
 	public void saveImageFromURL(final String imageUrl) throws SaveException {
 		if (!config.isAcceptableFile(imageUrl)) {
 			//На самом деле URL не обязан указывать на картинку непосредственно
@@ -47,7 +39,6 @@ public class Saver {
 		saveNewFile(url, directory, newFileName);
 	}
 
-	//main logic below
 	private String getDirectory() throws SaveException {
 		String rootPath = config.getRootDirectory();
 		AbstractDirectoryEntity rootDir = directoryFactory.getDirectoryEntity(rootPath);

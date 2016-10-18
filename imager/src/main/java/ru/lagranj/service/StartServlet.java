@@ -32,10 +32,8 @@ public class StartServlet implements Servlet {
 	@Override
 	public void init(ServletConfig servletConfig) throws ServletException {
 		config = servletConfig;
-		String pathToApp = servletConfig.getServletContext().getRealPath("/");
-		System.setProperty(ImagerConstants.ROOT_PATH, pathToApp);
 		LogUtil.info("Starting iMager application.");
-		LogUtil.info("Set root path to: " + pathToApp);
+		LogUtil.info("Set root path to: " + System.getProperty(ImagerConstants.ROOT_PATH));
 	}
 
 	@Override

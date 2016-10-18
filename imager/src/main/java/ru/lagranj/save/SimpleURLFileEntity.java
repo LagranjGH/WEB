@@ -23,7 +23,7 @@ public class SimpleURLFileEntity extends AbstractFileEntity {
 	}
 
 	@Override
-	public String generateCorrectName(String originalName) throws SaveException {
+	protected String generateCorrectName(String originalName) throws SaveException {
 		String name = onlyName(originalName);
 		String ext = onlyExtension(originalName);
 		File file;

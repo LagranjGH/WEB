@@ -9,8 +9,14 @@ public abstract class AbstractFileEntity {
 		this.newFileName = newFileName;
 	}
 
+	protected abstract String generateCorrectName(String originalName) throws SaveException;
+
+	/**
+	 * Возвращает окончательное имя файла с полным путем, в который будет сохранено изображение. 
+	 * 
+	 * @return
+	 * @throws SaveException
+	 */
 	public abstract String getFinalFileName() throws SaveException;
-	
-	public abstract String generateCorrectName(String originalName) throws SaveException;
 	
 }

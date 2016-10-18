@@ -7,15 +7,17 @@
 	<display-name>iMager project</display-name>
 	
 	<listener>
-	    <listener-class>
-	      org.springframework.web.context.ContextLoaderListener
-	    </listener-class>
+		<listener-class>ru.lagranj.service.ImagerContextListener</listener-class>
+	</listener>
+	
+	<listener>
+	    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   	</listener>
 	
 	<servlet>
 		<servlet-name>Start-servlet</servlet-name>
 		<servlet-class>ru.lagranj.service.StartServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
+		<load-on-startup>5</load-on-startup>
 	</servlet>
 	
 	<servlet>

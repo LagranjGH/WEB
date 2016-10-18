@@ -6,8 +6,9 @@ import java.io.IOException;
 import org.junit.Assert;
 import org.junit.Test;
 
+import ru.lagranj.save.AbstractFileEntity;
+import ru.lagranj.save.FileFactory;
 import ru.lagranj.save.SaveException;
-import ru.lagranj.save.SimpleURLFileEntity;
 import ru.lagranj.util.AppUtil;
 import ru.lagranj.util.ImagerConstants;
 
@@ -17,7 +18,7 @@ public class FileEntityTest extends BaseTest {
 
 	@Test
 	public void testCorrectName() throws SaveException {
-		SimpleURLFileEntity entity = new SimpleURLFileEntity(TEST_DIR, TEST_FILE_NAME);
+		AbstractFileEntity entity = FileFactory.getFileEntity(TEST_DIR, TEST_FILE_NAME);
 		String fileName = entity.getFinalFileName();
 		Assert.assertEquals(TEST_FILE_NAME, fileName);
 	}
@@ -26,7 +27,7 @@ public class FileEntityTest extends BaseTest {
 	public void testIncorrectName() {
 		SaveException ex = null;
 		try {
-			SimpleURLFileEntity entity = new SimpleURLFileEntity(TEST_DIR, "1223");
+			AbstractFileEntity entity = FileFactory.getFileEntity(TEST_DIR, "1223");
 			entity.getFinalFileName();
 		} catch (SaveException e) {
 			ex = e;
@@ -45,7 +46,7 @@ public class FileEntityTest extends BaseTest {
 			Assert.assertFalse(tempFile.exists());
 			Assert.assertFalse(tempFileExpected.exists());
 			tempFile.createNewFile();			
-			SimpleURLFileEntity entity = new SimpleURLFileEntity(TEST_DIR, testNameBefore);
+			AbstractFileEntity entity = FileFactory.getFileEntity(TEST_DIR, testNameBefore);
 			String fileName = entity.getFinalFileName();
 			if (tempFile.exists()) {
 				tempFile.delete();
