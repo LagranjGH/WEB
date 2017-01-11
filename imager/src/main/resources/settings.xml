@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+<!-- 
+#Main properties for application iMager
+#
+#  accept_file — Acceptable extensions of image files, separator is "/"
+#
+#  root_files_dir — Root directory for storing images
+#
+#  max_dir_size — Max size of subdirectory for storing images (in MB)
+#
+#  auto_close — If true, close result window automatically in <auto_close_period>
+#
+#  auto_close_period — Period after which the window will be closed (in milliseconds)
+#
+#######################################
+ -->
+	<setting name="accept_file" value="jpg/jpeg/gif/png/bmp"/>
+	<setting name="root_files_dir" value="C:/Data/tmp/img"/>
+	<setting name="max_dir_size" value="32"/>
+	<setting name="auto_close" value="false"/>
+	<setting name="auto_close_period" value="1500"/>
+</settings>

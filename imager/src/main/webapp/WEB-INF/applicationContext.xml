@@ -20,4 +20,6 @@
 	
 	<bean id="saver" class="ru.lagranj.save.Saver"/>
 	
+	<bean id="propertyDao" class="ru.lagranj.dao.XmlPropertyDaoImpl"/>
+	
 </beans>

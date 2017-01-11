@@ -1,7 +1,5 @@
 package ru.lagranj.test;
 
-import java.util.Properties;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +13,6 @@ public class ConfigTest extends BaseTest {
 	private ImagerConfig config;
 	
 	@Test
-	public void testLoader() {
-		Properties prop = AppUtil.loadProperties();
-		Assert.assertNotNull(prop);
-		Assert.assertTrue(prop.size() > 0);
-	}
-	
-	@Test
 	public void testFileAccept() {
 		Assert.assertTrue(config.isAcceptableFile("123.jpEG"));
 	}
@@ -33,7 +24,7 @@ public class ConfigTest extends BaseTest {
 	}
 	
 	@Test
-	public void testSubDirSize() {
+	public void testSubDirSize() throws InterruptedException {
 		int size = config.getMaxDirectorySize();
 		Assert.assertEquals(32, size);
 	}

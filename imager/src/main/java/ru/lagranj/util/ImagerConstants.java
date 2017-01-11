@@ -7,7 +7,7 @@ public final class ImagerConstants {
 	public static final String FILE_SEPARATOR = System.getProperty("file.separator");
 	public static final String STRING_DOT = ".";
 	public static final String STRING_UNDERSCORE = "_";
-	public static final String FILE_CONFIG_NAME = "imager.properties";
+	public static final String FILE_CONFIG_NAME = "settings.xml";
 	public static final int RELOAD_PROPERTIES_PERIOD = 60;
 	public static final int DEFAULT_SUBDIRECTORY_SIZE = 30;
 	public static final boolean DEFAULT_AUTO_CLOSE = false;

@@ -108,7 +108,7 @@
 				
 				<configuration>
 					<webappDirectory>${webappDirectory}</webappDirectory>
-					<warSourceExcludes>WEB-INF/classes/imager.properties,WEB-INF/classes/logback.xml</warSourceExcludes>
+					<warSourceExcludes>WEB-INF/classes/settings.xml,WEB-INF/classes/logback.xml</warSourceExcludes>
 				</configuration>
 			</plugin>
     	</plugins>
