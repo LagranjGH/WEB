@@ -1,20 +1,31 @@
 package ru.lagranj.config;
 
-import java.util.Properties;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import ru.lagranj.dao.PropertyDao;
 import ru.lagranj.util.AppUtil;
 import ru.lagranj.util.ImagerConstants;
 import ru.lagranj.util.LogUtil;
 
 public class ImagerConfig {	
-	private volatile Properties prop = new Properties();
+	
+	@Autowired
+	private PropertyDao propDao;
+	
+	private volatile Map<String, String> prop = new HashMap<String, String>();
 	
 	@Scheduled(fixedRate = ImagerConstants.RELOAD_PROPERTIES_PERIOD * 1000)
 	private void refresh() {
-		Properties propTmp = AppUtil.loadProperties();
+		Map<String, String> propTmp = propDao.getProperties();
 		prop = propTmp;
+	}
+	
+	public void doRefresh() {
+		refresh();
 	}
 	
 	public boolean isAcceptableFile(String fileName) {
@@ -22,7 +33,7 @@ public class ImagerConfig {
 			LogUtil.warn("File name is empty.");
 			return false;
 		}
-		String accept = prop.getProperty(PropertyName.FILE_ACCEPT);
+		String accept = prop.get(PropertyName.FILE_ACCEPT);
 		if (accept != null) {
 			String[] fileTypes = accept.split("/");
 			fileName = fileName.toLowerCase();
@@ -36,7 +47,7 @@ public class ImagerConfig {
 	}
 	
 	public String getRootDirectory() {
-		String rootDir = prop.getProperty(PropertyName.ROOT_DIR);
+		String rootDir = prop.get(PropertyName.ROOT_DIR);
 		if (AppUtil.isNullOrEmpty(rootDir)) {
 			rootDir = System.getProperty("user.home");
 			LogUtil.warn("Using default root directory: " + rootDir);
@@ -45,7 +56,7 @@ public class ImagerConfig {
 	}
 	
 	public int getMaxDirectorySize() {
-		String dirSize = prop.getProperty(PropertyName.SUBDIR_SIZE);
+		String dirSize = prop.get(PropertyName.SUBDIR_SIZE);
 		int size = ImagerConstants.DEFAULT_SUBDIRECTORY_SIZE;
 		if (AppUtil.isNullOrEmpty(dirSize)) {
 			LogUtil.warn("Using default subdirectory size: " + size);
@@ -60,7 +71,7 @@ public class ImagerConfig {
 	}
 	
 	public boolean isAutoClosable(){
-		String autoClose = prop.getProperty(PropertyName.AUTO_CLOSE);
+		String autoClose = prop.get(PropertyName.AUTO_CLOSE);
 		boolean result = ImagerConstants.DEFAULT_AUTO_CLOSE;
 		if (AppUtil.isNullOrEmpty(autoClose)) {
 			LogUtil.warn("By default autoclosable parameter is " + result);
@@ -71,7 +82,7 @@ public class ImagerConfig {
 	}
 	
 	public int getAutoClosePeriod() {
-		String periodProp = prop.getProperty(PropertyName.AUTO_CLOSE_PERIOD);
+		String periodProp = prop.get(PropertyName.AUTO_CLOSE_PERIOD);
 		int period = ImagerConstants.DEFAULT_AUTO_CLOSE_PERIOD;
 		if (AppUtil.isNullOrEmpty(periodProp)) {
 			LogUtil.warn("Using default autoclose period = " + period);
