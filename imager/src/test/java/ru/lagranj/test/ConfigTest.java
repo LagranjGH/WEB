@@ -28,4 +28,24 @@ public class ConfigTest extends BaseTest {
 		int size = config.getMaxDirectorySize();
 		Assert.assertEquals(32, size);
 	}
+	
+	@Test
+	public void changeParamTest() {
+		boolean isAuto = config.isAutoClosable();
+		if (isAuto) {
+			config.setAutoClosable(false);
+			config.doRefresh();
+			Assert.assertFalse(config.isAutoClosable());
+			config.setAutoClosable(true);
+			config.doRefresh();
+			Assert.assertTrue(config.isAutoClosable());
+		} else {
+			config.setAutoClosable(true);
+			config.doRefresh();
+			Assert.assertTrue(config.isAutoClosable());
+			config.setAutoClosable(false);
+			config.doRefresh();
+			Assert.assertFalse(config.isAutoClosable());
+		}
+	}
 }

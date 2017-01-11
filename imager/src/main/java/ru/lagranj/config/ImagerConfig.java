@@ -46,6 +46,12 @@ public class ImagerConfig {
 		return false;
 	}
 	
+	public void setAcceptableFiles(String value) {
+		if (!AppUtil.isNullOrEmpty(value)) {
+			propDao.setProperty(PropertyName.FILE_ACCEPT, String.valueOf(value));
+		}
+	}
+	
 	public String getRootDirectory() {
 		String rootDir = prop.get(PropertyName.ROOT_DIR);
 		if (AppUtil.isNullOrEmpty(rootDir)) {
@@ -53,6 +59,12 @@ public class ImagerConfig {
 			LogUtil.warn("Using default root directory: " + rootDir);
 		}
 		return rootDir;
+	}
+	
+	public void setRootDirectory(String value) {
+		if (!AppUtil.isNullOrEmpty(value)) {
+			propDao.setProperty(PropertyName.ROOT_DIR, String.valueOf(value));
+		}
 	}
 	
 	public int getMaxDirectorySize() {
@@ -70,6 +82,12 @@ public class ImagerConfig {
 		return size;
 	}
 	
+	public void setMaxDirectorySize(int value) {
+		if (value > 0 && value <= 512) {
+			propDao.setProperty(PropertyName.SUBDIR_SIZE, String.valueOf(value));
+		}
+	}
+	
 	public boolean isAutoClosable(){
 		String autoClose = prop.get(PropertyName.AUTO_CLOSE);
 		boolean result = ImagerConstants.DEFAULT_AUTO_CLOSE;
@@ -79,6 +97,10 @@ public class ImagerConfig {
 		}
 		result = Boolean.valueOf(autoClose);
 		return result;
+	}
+	
+	public void setAutoClosable(boolean value) {
+		propDao.setProperty(PropertyName.AUTO_CLOSE, String.valueOf(value));
 	}
 	
 	public int getAutoClosePeriod() {
@@ -94,5 +116,11 @@ public class ImagerConfig {
 			LogUtil.warn("Using default autoclose period = " + period);
 		}
 		return period;
+	}
+	
+	public void setAutoClosePeriod(int value) {
+		if (value > 0) {
+			propDao.setProperty(PropertyName.AUTO_CLOSE_PERIOD, String.valueOf(value));
+		}
 	}
 }
